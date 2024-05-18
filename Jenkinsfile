@@ -34,7 +34,7 @@ pipeline {
                 script {
                     echo "Building the docker image"
                     dir('backend') {
-                        withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                             sh "docker build -t $USER/${APP_NAME}:latest ."
                             sh "echo $PASS | docker login -u $USER --password-stdin"
                             sh "docker push $USER/${APP_NAME}:latest"
