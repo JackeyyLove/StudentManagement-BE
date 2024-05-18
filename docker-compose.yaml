@@ -1,0 +1,39 @@
+services: 
+  backend: 
+    container_name: student-backend
+    restart: always
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    networks: 
+      - spring-mysql-net
+    ports: 
+      - "8080:8080"
+    depends_on: 
+      - mysqldb
+  mysqldb: 
+    container_name: mysqldb
+    image: mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: studentdb
+    networks: 
+      - spring-mysql-net
+    ports:
+      - "3306:3306"
+    volumes: 
+      - db-data:/var/lib/mysql
+  web: 
+    container_name: student-frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    networks: 
+      - spring-mysql-net
+    ports: 
+      - "3000:3000"
+
+volumes: 
+  db-data: {}
+networks:
+  spring-mysql-net:
