@@ -19,16 +19,7 @@ pipeline {
                 }
             }
         } 
-        stage('Build jar file') {
-            steps {
-                script {
-                    echo "Building the application"
-                    dir('backend') {
-                        sh "mvn clean package -DskipTests"
-                    }
-                }
-            }
-        }
+        
         stage('Build image') {
             steps {
                 script {
