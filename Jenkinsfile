@@ -17,6 +17,7 @@ pipeline {
             steps {
                 script {
                     echo "Testing application with JUnit5"
+                    sh 'cd backend/'
                     sh 'mvn test'
                 }
             }
