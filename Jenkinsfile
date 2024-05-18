@@ -8,11 +8,7 @@ pipeline {
     }
     
     stages {
-        stage('Clone') {
-            steps {
-                git credentialsId: 'Git-credentials', url: 'https://github.com/JackeyyLove/StudentManagement-BE.git'
-            }
-        }
+        
         stage('Unit test') {
             steps {
                 script {
