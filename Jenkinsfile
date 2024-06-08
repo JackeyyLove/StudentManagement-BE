@@ -6,7 +6,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-repo')
         CONFIG_REPO_URL = 'https://github.com/JackeyyLove/VDT24-Config-API.git'
-        CONFIG_REPO_CREDENTIALS = credentials('Github')
+        CONFIG_REPO_CREDENTIALS = credentials('33062d77-6fcd-4753-9c2b-0c1cd43103af')
         REPO_NAME = 'louisdevops/student-management-backend'
     }
     
@@ -46,7 +46,7 @@ pipeline {
                         git config user.email 'loidao99@gmail.com'
                         git add values.yaml
                         git commit -m 'Update image tag to ${env.TAG_NAME}'
-                        git push origin main
+                        git push origin master
                         """
                     }
                 }
