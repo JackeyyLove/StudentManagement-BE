@@ -39,6 +39,7 @@ pipeline {
                     echo "Updating config repo with new image tag: ${env.TAG_NAME}"
                     withCredentials([usernamePassword(credentialsId: CONFIG_REPO_CREDENTIALS, usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         sh """
+                        echo "accessed to this"
                         git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@${CONFIG_REPO_URL} 
                         sed -i 's/tag: .*/tag: ${env.TAG_NAME}/' values.yaml
                         git config user.name 'JackeyyLove'
