@@ -40,6 +40,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'Github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         sh """
                         echo "accessed to this"
+                        rm -rf VDT24-Config-API
                         git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@${CONFIG_REPO_URL} 
                         cd VDT24-Config-API
                         sed -i 's/tag: .*/tag: ${env.TAG_NAME}/' values.yaml
