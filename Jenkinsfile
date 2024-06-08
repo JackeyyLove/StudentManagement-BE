@@ -11,6 +11,14 @@ pipeline {
     }
     
     stages {
+        stage('Get Latest Tag') {
+            steps {
+                script {
+                    env.TAG_NAME = sh(returnStdout: true, script: "git tag --sort version:refname | tail -1").trim()
+                    echo "Latest Tag: ${env.TAG_NAME}"
+                }
+            }
+        }
         stage('Build image') {
             steps {
                 script {
