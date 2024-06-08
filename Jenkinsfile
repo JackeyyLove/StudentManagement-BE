@@ -39,7 +39,6 @@ pipeline {
                     echo "Updating config repo with new image tag: ${env.TAG_NAME}"
                     withCredentials([usernamePassword(credentialsId: 'Github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         sh """
-                        echo "accessed to this"
                         rm -rf VDT24-Config-API || true
                         git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@${CONFIG_REPO_URL} 
                         cd VDT24-Config-API
