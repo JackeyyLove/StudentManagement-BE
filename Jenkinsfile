@@ -41,6 +41,7 @@ pipeline {
                         sh """
                         echo "accessed to this"
                         git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@${CONFIG_REPO_URL} 
+                        cd VDT24-Config-API
                         sed -i 's/tag: .*/tag: ${env.TAG_NAME}/' values.yaml
                         git config user.name 'JackeyyLove'
                         git config user.email 'loidao99@gmail.com'
