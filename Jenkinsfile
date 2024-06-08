@@ -40,14 +40,14 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'Github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         sh """
                         echo "accessed to this"
-                        rm -rf VDT24-Config-API
+                        rm -rf VDT24-Config-API || true
                         git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@${CONFIG_REPO_URL} 
                         cd VDT24-Config-API
                         sed -i 's/tag: .*/tag: ${env.TAG_NAME}/' values.yaml
                         git config user.name 'JackeyyLove'
                         git config user.email 'loidao99@gmail.com'
                         git add values.yaml
-                        git commit -m 'Update image tag to ${env.TAG_NAME}'
+                        git commit -m 'Update image tag to ${env.TAG_NAME}' || true
                         git push origin master
                         """
                     }
