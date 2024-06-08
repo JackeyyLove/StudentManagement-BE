@@ -5,7 +5,7 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-repo')
-        CONFIG_REPO_URL = 'https://github.com/JackeyyLove/VDT24-Config-API.git'
+        CONFIG_REPO_URL = 'github.com/JackeyyLove/VDT24-Config-API.git'
         CONFIG_REPO_CREDENTIALS = credentials('Github')
         REPO_NAME = 'louisdevops/student-management-backend'
     }
