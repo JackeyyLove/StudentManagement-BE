@@ -28,16 +28,19 @@ pipeline {
          stage('Update Config Repo') {
             steps {
                 script {
-                    echo "Cloning config repo"
-                    git branch: 'master', credentialsId: 'Github', url: "${CONFIG_REPO_URL}"
-
-                    echo "Updating values.yaml with new image tag"
-                    sh """
-                    sed -i 's/tag: .*/tag: ${env.TAG_NAME}/' values.yaml
-                    git add values.yaml
-                    git commit -m "Update image tag to ${env.TAG_NAME}"
-                    git push origin master
-                    """
+                    echo "Updating config repo with new image tag: ${env.TAG_NAME}"
+                    withCredentials([usernamePassword(credentialsId: CONFIG_REPO_CREDENTIALS, usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        sh """
+                        git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@${CONFIG_REPO_URL} config-repo
+                        cd config-repo
+                        sed -i 's/tag: .*/tag: ${env.TAG_NAME}/' values.yaml
+                        git config user.name 'JackeyyLove'
+                        git config user.email 'loidao99@gmail.com'
+                        git add values.yaml
+                        git commit -m 'Update image tag to ${env.TAG_NAME}'
+                        git push origin main
+                        """
+                    }
                 }
             }
         }
