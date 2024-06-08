@@ -6,7 +6,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-repo')
         CONFIG_REPO_URL = 'https://github.com/JackeyyLove/VDT24-Config-API.git'
-        CONFIG_REPO_CREDENTIALS = credentials('33062d77-6fcd-4753-9c2b-0c1cd43103af')
+        CONFIG_REPO_CREDENTIALS = credentials('Github')
         REPO_NAME = 'louisdevops/student-management-backend'
     }
     
@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     echo "Updating config repo with new image tag: ${env.TAG_NAME}"
-                    withCredentials([usernamePassword(credentialsId: CONFIG_REPO_CREDENTIALS, usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'Github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         sh """
                         echo "accessed to this"
                         git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@${CONFIG_REPO_URL} 
