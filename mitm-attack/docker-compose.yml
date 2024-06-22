@@ -1,0 +1,38 @@
+services:
+  alice:
+    image: jlesage/firefox
+    container_name: alice-client
+    restart: always
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - "5800:5800"
+    networks:
+      - mitm
+  bob:
+    image: aikain/simplehttpserver:0.1
+    container_name: bob-website
+    restart: always
+    volumes:
+      - ./bob:/var/www
+    ports:
+      - "80:80"
+    networks:
+      - mitm
+  eve:
+    privileged: true
+    build: .
+    container_name: eve-mitm
+    volumes:
+      - ./eve:/eve
+    sysctls:
+      # Set kernel parameters inside the container
+      - net.ipv4.ip_forward=1
+      - net.ipv6.conf.all.forwarding=1
+      - net.ipv4.conf.all.send_redirects=0
+    networks:
+      - mitm
+
+networks:
+  mitm:
+
