@@ -2,9 +2,7 @@ services:
   backend: 
     container_name: student-backend
     restart: always
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile
+    image: louisdevops/student-management-backend
     networks: 
       - spring-mysql-net
     ports: 
@@ -20,15 +18,14 @@ services:
       MYSQL_DATABASE: studentdb
     networks: 
       - spring-mysql-net
+    restart: always
     ports:
       - "3306:3306"
     volumes: 
       - db-data:/var/lib/mysql
   web: 
     container_name: student-frontend
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: louisdevops/student-management-frontend
     networks: 
       - spring-mysql-net
     ports: 
